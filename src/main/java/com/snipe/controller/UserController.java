@@ -27,13 +27,13 @@ public class UserController {
         return ResponseEntity.ok(userServices.createUser(user));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/userById{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
         Optional<UserDTO> userDTO = userServices.getUserById(id);
         return userDTO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
     
-    @GetMapping("/{email}")
+    @GetMapping("/userByEmail/{email}")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
         Optional<UserDTO> userDTO = userServices.getUserByemail(email);
         return userDTO.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());

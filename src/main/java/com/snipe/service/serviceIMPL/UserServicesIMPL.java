@@ -117,6 +117,11 @@ public class UserServicesIMPL implements UserServices{
 
 	    @Override
 	    public UserDTO createUser(User user) {
+
+		Optional<User> isUserExists = userRepository.findByEmail(user.getEmail());
+		if (isUserExists.isPresent()) {
+			throw new RuntimeException(String.format("Email address %s already in use",user.getEmail()));
+		}
 	        // Handling Organization and Role mapping
 	        if (user.getOrganization() != null) {
 	            // Ensure Organization is set properly
@@ -411,7 +416,8 @@ public class UserServicesIMPL implements UserServices{
 		    user.setDateOfBirth(userRegisterDTO.getDateOfBirth());
 		    user.setActive(true);  // Setting default status as active
 		    user.setCreatedAt(LocalDateTime.now());
-		    user.setOrganization(null);
+
+			System.out.println("ORG ID "+userRegisterDTO.getOrgID());
 		    
 		    if (userRegisterDTO.getOrgID() != null) {
 		        Organization organization = organizationRepository.findById(userRegisterDTO.getOrgID())
@@ -420,7 +426,7 @@ public class UserServicesIMPL implements UserServices{
 		    } else {
 		        user.setOrganization(null);
 		    }
-		    Role role = roleRepository.findById(5) // Fetch from DB
+		    Role role = roleRepository.findById(1) // Fetch from DB
 	                   .orElseThrow(() -> new RuntimeException("Default role USER not found"));
 		    user.setRole(role);
 	    

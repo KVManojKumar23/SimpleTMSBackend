@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.snipe.dto.user.UserDTO.RoleDTO;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "users", indexes = {
@@ -90,6 +91,7 @@ public class User {
     private void updateFullName() {
         this.fullName = getFullName();
         this.lastModifiedAt = LocalDateTime.now();
+        this.lastLogin = LocalDateTime.now();
     }
 
     public enum Gender {

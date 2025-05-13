@@ -63,7 +63,7 @@ public class Employee {
     
     @Column(length = 255)
     private String notes;
-    
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

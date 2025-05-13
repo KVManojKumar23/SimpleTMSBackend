@@ -42,6 +42,9 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Validated @RequestBody UserRegisterDTO userRegisterDTO) {
+
+        System.out.println("org id : "+ userRegisterDTO.getOrgID());
+
         // Validate password
         if (userRegisterDTO.getPassword() == null || userRegisterDTO.getPassword().trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Password cannot be empty");
@@ -96,6 +99,6 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().getRoleName());
 
         // Return successful response
-        return ResponseEntity.ok(new AuthResponse(token, user.getRole().getRoleName()));
+        return ResponseEntity.ok(new AuthResponse("Bearer "+token, user.getRole().getRoleName()));
     }    
 }
