@@ -99,6 +99,6 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole().getRoleName());
 
         // Return successful response
-        return ResponseEntity.ok(new AuthResponse("Bearer "+token, user.getRole().getRoleName()));
+        return ResponseEntity.ok(new AuthResponse(token, user.getRole().getRoleName()));
     }    
 }
